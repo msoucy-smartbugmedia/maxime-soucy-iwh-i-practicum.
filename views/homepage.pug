@@ -1,0 +1,37 @@
+doctype html
+html 
+    head 
+        title= `${title}`
+        meta(name="viewport" content="width=device-width, initial-scale=1")
+        link(rel="stylesheet", href="css/style.css")
+    body
+        h1 Custom Object Table
+        .table-container
+            a(href="/update-cobj") Add to this table
+            table
+                tbody
+                    tr
+                        th Pet Name
+                        th Custom Property 1
+                        th Custom Property 2
+                        th Custom Property 3
+                        th Quantity
+                    each pet in data
+                        tr
+                        each property in [pet.properties.pet_name, pet.properties.custom_property_1, pet.properties.custom_property_2, pet.properties.custom_property_3, pet.properties.quantity]
+                            td #{property}
+
+
+//- doctype html
+//- html 
+//-     head 
+//-         title= `${title}`
+//-         meta(name="viewport" content="width=device-width, initial-scale=1")
+//-         link(rel="stylesheet", href="/css/style.css")
+//-     body    
+//-         h1 Contacts
+//-         .cards 
+//-             each contact in data
+//-                 .card 
+//-                     h2.card__name #{contact.properties.firstname}  #{contact.properties.lastname}
+//-                     p.card__email #{contact.properties.email}

@@ -1,0 +1,21 @@
+doctype html
+html(lang="en")
+    head
+        title Update contact info
+        link(rel="stylesheet", href="/css/style.css")
+    body
+        .form-wrapper
+            a(href='/') Return to the homepage
+            p Add new pet:
+            form(method="POST")
+                label(for="newName") Pet Name
+                input(type="text" name="newPetName" required)
+                label(for="newType") Custom Property 1 (Number)
+                input(type="number" name="newCustom_property_1" required)
+                label(for="newType") Custom Property 2
+                input(type="text" name="newCustom_property_2" required)
+                label(for="newType") Custom Property 3
+                input(type="text" name="newCustom_property_3" required)
+                label(for="newQuantity") Quantity
+                input(type="text" name="newQuantity" required)
+                input(type="submit" value="Submit")

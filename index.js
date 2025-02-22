@@ -12,15 +12,74 @@ const PRIVATE_APP_ACCESS = '';
 
 // TODO: ROUTE 1 - Create a new app.get route for the homepage to call your custom object data. Pass this data along to the front-end and create a new pug template in the views folder.
 
-// * Code for Route 1 goes here
+app.get('/', async (req, res) => {
+    console.log('test log');
+    const pet = 'https://api.hubapi.com/crm/v3/objects/2-150050970?properties=pet_name%2Ccustom_property_1%2Ccustom_property_2%2Ccustom_property_3%2Cquantity&archived=false';
+    const headers = {
+        Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
+        'Content-Type': 'application/json'
+    }
+
+    try {
+        const resp = await axios.get(pet, { headers });
+        const data = resp.data.results;
+
+
+        res.render('homepage', { title: 'Pets | HubSpot APIs', data });
+    } catch (error) {
+        console.error(error);
+    }
+
+});
 
 // TODO: ROUTE 2 - Create a new app.get route for the form to create or update new custom object data. Send this data along in the next route.
 
-// * Code for Route 2 goes here
+app.get('/update-cobj', async (req, res) => {
+
+    const pet = 'https://api.hubapi.com/crm/v3/objects/2-150050970';
+    const headers = {
+        Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
+        'Content-Type': 'application/json'
+    }
+
+    try {
+        const resp = await axios.get(pet, { headers });
+        const data = resp.data.results;
+        res.render('updates', { title: 'Update Custom Object Form | Integrating With HubSpot I Practicum', data });      
+    } catch (error) {
+        console.error(error);
+    }
+});
 
 // TODO: ROUTE 3 - Create a new app.post route for the custom objects form to create or update your custom object data. Once executed, redirect the user to the homepage.
 
-// * Code for Route 3 goes here
+app.post('/update-cobj', async (req, res) => {
+    const update = {
+        properties: {
+            "pet_name": req.body.newPetName,
+            "custom_property_1": req.body.newCustom_property_1,
+            "custom_property_2": req.body.newCustom_property_2,
+            "custom_property_3": req.body.newCustom_property_3,
+            "quantity": req.body.newQuantity
+        }
+    }
+
+    const updateFood = `https://api.hubapi.com/crm/v3/objects/2-150050970`;
+    const headers = {
+        Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
+        'Content-Type': 'application/json'
+    };
+
+    try { 
+        const response = await axios.post(updateFood, update, { headers });
+        console.log('Update successful:', response.data);
+
+        res.redirect('/');
+    } catch(err) {
+        console.error(err);
+    }
+
+});
 
 /** 
 * * This is sample code to give you a reference for how you should structure your calls. 
